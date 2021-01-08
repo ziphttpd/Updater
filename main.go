@@ -18,8 +18,9 @@ const (
 	ziphttpdexe = "ziphttpd.exe"
 	ziphttpdold = "ziphttpd.old"
 	zhgetexe    = "zhget.exe"
-	zhsigexe    = "zhsig.exe"
+	zhsignexe   = "zhsign.exe"
 	updaterexe  = "updater.exe"
+	launcherexe = "launcher.exe"
 )
 
 func main() {
@@ -50,8 +51,9 @@ func main() {
 		files := []string{
 			ziphttpdexe,
 			zhgetexe,
-			zhsigexe,
+			zhsignexe,
 			updaterexe,
+			launcherexe,
 		}
 
 		// クリーニング
