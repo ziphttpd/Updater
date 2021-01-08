@@ -1,5 +1,7 @@
 github.com/xorvercom/util v0.0.0-20200708133029-6df8aabe3148 h1:GeeDX+GgWziZHoEObXVT0TLgQ4xS3615sVRkhuiwLQw=
 github.com/xorvercom/util v0.0.0-20200708133029-6df8aabe3148/go.mod h1:6M76XgT6CWAZ7ulBJziWvaWC8ICrc7kctm6UVEhEFM8=
+github.com/xorvercom/util v0.0.0-20210108010905-60ced194d72b h1:UV5FH2u1BcvzySdIIQA4xXcfvxJL0nzb55bKPnt4udo=
+github.com/xorvercom/util v0.0.0-20210108010905-60ced194d72b/go.mod h1:6M76XgT6CWAZ7ulBJziWvaWC8ICrc7kctm6UVEhEFM8=
 github.com/ziphttpd/zhsig v0.0.0-20210105075119-3ad3164034a5 h1:GV5qwpeuKwuU2kUlgUSiEE1aEKOsFr1A/FOCIdFp6a8=
 github.com/ziphttpd/zhsig v0.0.0-20210105075119-3ad3164034a5/go.mod h1:4vxA2giasI0kpJa1Vt6L/yYrD52m28okOpAj2l7dXBk=
 golang.org/x/text v0.3.2 h1:tW2bmiBqwgJj/UpqtC8EpXEZVYOwU0yG4iWbprSVAcs=

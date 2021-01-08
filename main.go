@@ -8,6 +8,7 @@ import (
 	"os/exec"
 	fpath "path/filepath"
 
+	"github.com/xorvercom/util/pkg/fileutil"
 	"github.com/xorvercom/util/pkg/json"
 	"github.com/xorvercom/util/pkg/zip"
 	"github.com/ziphttpd/zhsig/pkg/zhsig"
@@ -55,11 +56,11 @@ func main() {
 
 		// クリーニング
 		for _, name := range files {
-			err = fileIfDelete(fpath.Join(dir, name+".copy"))
+			err = fileutil.FileIfDelete(fpath.Join(dir, name+".copy"))
 			if err != nil {
 				return err
 			}
-			err = fileIfDelete(fpath.Join(dir, name+".old"))
+			err = fileutil.FileIfDelete(fpath.Join(dir, name+".old"))
 			if err != nil {
 				return err
 			}
@@ -74,25 +75,25 @@ func main() {
 		// 適用
 		for _, name := range files {
 			// コピー
-			err = fileCopy(fpath.Join(tempdir, name), fpath.Join(dir, name+".copy"))
+			err = fileutil.FileCopy(fpath.Join(tempdir, name), fpath.Join(dir, name+".copy"))
 			if err != nil {
 				return err
 			}
 			// 以前の実行ファイルをoldに
-			err = fileIfMove(fpath.Join(dir, name), fpath.Join(dir, name+".old"))
+			err = fileutil.FileIfMove(fpath.Join(dir, name), fpath.Join(dir, name+".old"))
 			if err != nil {
 				// old を復旧
 				for _, name := range files {
-					fileIfMove(fpath.Join(dir, name+".old"), fpath.Join(dir, name))
+					fileutil.FileIfMove(fpath.Join(dir, name+".old"), fpath.Join(dir, name))
 				}
 				return err
 			}
 			// コピーした実行ファイルを新に
-			err = fileIfMove(fpath.Join(dir, name+".copy"), fpath.Join(dir, name))
+			err = fileutil.FileIfMove(fpath.Join(dir, name+".copy"), fpath.Join(dir, name))
 			if err != nil {
 				// old を復旧
 				for _, name := range files {
-					fileIfMove(fpath.Join(dir, name+".old"), fpath.Join(dir, name))
+					fileutil.FileIfMove(fpath.Join(dir, name+".old"), fpath.Join(dir, name))
 				}
 				return err
 			}
@@ -125,7 +126,7 @@ func downloadedFile(dir string) (string, error) {
 // zipエントリをファイルに出力
 func fileExtract(dic zip.Dictionary, entry, exetemp string) error {
 	// 出力先を消去
-	err := fileIfDelete(exetemp)
+	err := fileutil.FileIfDelete(exetemp)
 	if err != nil {
 		return err
 	}
@@ -142,46 +143,4 @@ func fileExtract(dic zip.Dictionary, entry, exetemp string) error {
 	}
 	// ファイルに出力
 	return ioutil.WriteFile(exetemp, b, 0644)
-}
-
-// ファイルコピー
-func fileCopy(src, dst string) error {
-	// コピー先を消去
-	err := fileIfDelete(dst)
-	if err != nil {
-		return err
-	}
-	// 読み出し
-	b, err := ioutil.ReadFile(src)
-	if err != nil {
-		return err
-	}
-	// 書き出し
-	return ioutil.WriteFile(dst, b, 0644)
-}
-
-// ファイルを移動 (移動元が無くても正常終了)
-func fileIfMove(src, dst string) error {
-	// 移動先を消去
-	err := fileIfDelete(dst)
-	if err != nil {
-		return err
-	}
-	// 移動
-	return os.Rename(src, dst)
-}
-
-// ファイル削除
-func fileIfDelete(file string) error {
-	_, err := os.Stat(file)
-	if err != nil {
-		if os.IsExist(err) {
-			// ファイルがあるのにstatが失敗
-			return err
-		}
-		// ファイルが無かったのでnoop
-		return nil
-	}
-	// 削除
-	return os.Remove(file)
 }
