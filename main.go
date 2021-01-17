@@ -21,6 +21,7 @@ const (
 	zhsignexe   = "zhsign.exe"
 	updaterexe  = "updater.exe"
 	launcherexe = "launcher.exe"
+	selectorexe = "selector.exe"
 )
 
 func main() {
@@ -54,6 +55,7 @@ func main() {
 			zhsignexe,
 			updaterexe,
 			launcherexe,
+			selectorexe,
 		}
 
 		// クリーニング
