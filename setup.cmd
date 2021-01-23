@@ -11,14 +11,14 @@ if "%ZH_HOME%" == "" (
 cd %SCRIPTDIR%
 git pull
 
-set EXEID=updater
-set SOURCE=%SCRIPTDIR%%EXEID%.exe
-set TARGET=%ZH_HOME%%EXEID%.exe
+set FILE=updater.exe
+set SOURCE=%SCRIPTDIR%%FILE%
+set TARGET=%ZH_HOME%%FILE%
 
 go build -o %SOURCE% main.go
 
 if exist %TARGET%.old del /Y %TARGET%.old
-if exist %TARGET% ren %TARGET% %TARGET%.old
+if exist %TARGET% ren %TARGET% %FILE%.old
 copy %SOURCE% %TARGET%
 
 exit /B 0
