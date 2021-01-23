@@ -17,7 +17,7 @@ set TARGET=%ZH_HOME%%FILE%
 
 go build -o %SOURCE% main.go
 
-if exist %TARGET%.old del /Y %TARGET%.old
+if exist %TARGET%.old del /F %TARGET%.old
 if exist %TARGET% ren %TARGET% %FILE%.old
 copy %SOURCE% %TARGET%
 
