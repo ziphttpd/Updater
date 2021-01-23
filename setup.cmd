@@ -1,24 +1,24 @@
-@echo off
+rem @echo off
 
-set TARGET=%1
-set BASE=%~dp0
+set ZH_HOME=%1
+set SCRIPTDIR=%~dp0
 
-if "%TARGET%" == "" (
+if "%ZH_HOME%" == "" (
 	echo setup.cmd targetfolder\
 	exit /B 1
 )
 
-cd %BASE%
+cd %SCRIPTDIR%
 git pull
 
 set EXEID=updater
-set BUILDEXE=%BASE%%EXEID%.exe
-set TARGETEXE=%TARGET%%EXEID%.exe
+set SOURCE=%SCRIPTDIR%%EXEID%.exe
+set TARGET=%ZH_HOME%%EXEID%.exe
 
-go build -o %BUILDEXE% main.go
+go build -o %SOURCE% main.go
 
-if exist %TARGETEXE%.old del /F %TARGETEXE%.old
-if exist %TARGETEXE% ren %TARGETEXE% %TARGETEXE%.old
-copy %BUILDEXE% %TARGETEXE%
+if exist %TARGET%.old del /Y %TARGET%.old
+if exist %TARGET% ren %TARGET% %TARGET%.old
+copy %SOURCE% %TARGET%
 
 exit /B 0
